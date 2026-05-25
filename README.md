@@ -1,5 +1,4 @@
-# 🌦️ CHAAC ANALIZR
-
+# CHAAC ANALIZR
 ## Sistema de Monitoreo Ambiental para Obra Civil
 
 Proyecto desarrollado para el curso **Programación para la Ciencia e Ingeniería**  
@@ -7,254 +6,136 @@ Universidad Mariano Gálvez de Guatemala — Campus Antigua
 
 ---
 
-## 📋 Descripción
+## ¿Qué hace?
 
-CHAAC ANALIZR es un sistema desarrollado en Python para el monitoreo y análisis de condiciones ambientales en obras civiles.
+CHAAC ANALIZR carga registros climáticos desde un archivo CSV y analiza automáticamente:
 
-El programa permite cargar registros climáticos desde archivos CSV y analizar automáticamente variables como:
+- Temperatura ambiente
+- Humedad relativa
+- Precipitación pluvial
 
-- 🌡️ Temperatura
-- 💧 Humedad relativa
-- 🌧️ Precipitación pluvial
-
-Con base en estos datos, el sistema genera alertas técnicas para apoyar decisiones importantes en obra, especialmente durante el colado de concreto.
+Con base en esos datos, el sistema emite alertas técnicas para decidir si las condiciones son aptas para colar concreto.
 
 ---
 
-## 🚀 Cómo ejecutar
+## Capturas
+
+### Interfaz al iniciar
+![Interfaz inicial](capturas/inicio.png)
+
+### Sistema con datos cargados
+![Sistema activo](capturas/datos_cargados.png)
+
+---
+
+## Cómo ejecutar
 
 ### Requisitos
-- Python 3.x instalado
-- Librería matplotlib
+- Python 3.x
+- matplotlib
 
 ### Instalación
 ```bash
 pip install matplotlib
 ```
 
-### Pasos
+### Ejecución
 ```bash
-# Clona el repositorio
-git clone https://github.com/TU_USUARIO/chaac-analizr.git
-
-# Entra a la carpeta
-cd chaac-analizr
-
-# Ejecuta el sistema
 python main_gui.py
 ```
 
 ---
 
-## 🏗️ Problema que resuelve
-
-En muchas obras civiles las decisiones relacionadas con el colado de concreto se realizan de forma empírica, sin analizar condiciones climáticas reales.
-
-Factores como:
-- Temperaturas extremas
-- Humedad elevada
-- Lluvias intensas
-
-pueden afectar la resistencia y calidad del concreto, provocando:
-
-- Fisuras
-- Problemas de fraguado
-- Segregación de agregados
-- Pérdida de resistencia estructural
-
-CHAAC ANALIZR automatiza este análisis mediante datos climáticos reales almacenados en archivos CSV.
-
----
-
-## 🌤️ Captura de datos
-
-Los datos climáticos fueron obtenidos manualmente mediante la aplicación de clima **AccuWeather**.
-
-La aplicación proporciona información por horas sobre:
-
-- Temperatura
-- Humedad relativa
-- Probabilidad y cantidad de lluvia
-
-El proceso utilizado fue el siguiente:
-
-1. Una vez al día se verificaban los datos climáticos horarios dentro de la aplicación.
-2. Los registros relevantes eran anotados manualmente.
-3. Posteriormente, los datos se transcribían al archivo CSV utilizado por el sistema.
-4. Finalmente, el CSV era cargado en CHAAC ANALIZR para realizar el análisis automático.
-
-Este método permitió simular un proceso real de monitoreo ambiental en obra civil utilizando datos climáticos reales.
-
----
-
-## 📁 Formato del archivo CSV
-
-El sistema utiliza archivos CSV con la siguiente estructura:
+## Formato del archivo CSV
 
 ```csv
 fecha_hora,temperatura_C,humedad_pct,lluvia_mm,ubicacion
-2025-01-15 08:00,22.5,68.0,0.0,Zona A
-2025-01-15 09:00,24.1,71.0,0.0,Zona A
-2025-01-15 10:00,26.3,82.0,2.5,Zona A
+2026-05-22 06:00,18.0,78,0.0,Exterior
+2026-05-22 08:00,23.0,66,0.0,Exterior
+2026-05-22 10:00,27.0,60,0.0,Exterior
+2026-05-22 14:00,26.0,66,5.9,Exterior
 ```
 
 ---
 
-## 🏛️ Arquitectura del sistema
-
-```text
-chaac_analizr/
-│
-├── main_gui.py              # Interfaz gráfica principal
-├── analizador.py            # Lógica de análisis y alertas
-├── registro_climatico.py    # Lectura y organización del CSV
-└── lectura.py               # Modelo de datos climáticos
-```
-
----
-
-## 🧩 Clases del proyecto
-
-### 📌 Lectura
-Representa una lectura climática individual.
-
-**Atributos:**
-- fecha_hora
-- temperatura_C
-- humedad_pct
-- lluvia_mm
-- ubicacion
-
----
-
-### 📌 RegistroClimatico
-Carga el archivo CSV y almacena todas las lecturas.
-
-Funciones principales:
-- Leer datos
-- Crear objetos Lectura
-- Organizar información climática
-
----
-
-### 📌 Analizador
-Evalúa las condiciones climáticas utilizando umbrales técnicos del concreto.
-
-Alertas generadas:
-- ✅ CONDICIONES OPTIMAS
-- ⚠️ CONDICIONES DE SECADO DEFICIENTES
-- ❌ NO RECOMENDABLE COLAR CONCRETO
-
----
-
-### 📌 App
-Interfaz gráfica desarrollada con tkinter.
-
-Muestra:
-- Tabla de registros
-- Alertas por color
-- Métricas
-- Gráficas dinámicas
-
----
-
-## 📊 Sistema de alertas
+## Sistema de alertas
 
 | Estado | Condición |
 |---|---|
-| ✅ CONDICIONES OPTIMAS | Temp. entre 10°C y 35°C, humedad < 85%, lluvia < 10 mm |
-| ⚠️ SECADO DEFICIENTE | Humedad ≥ 85% |
-| ❌ NO COLAR CONCRETO | Lluvia ≥ 10 mm o temperatura fuera de rango |
+| ✔ CONDICIONES OPTIMAS | Temp. entre 10°C y 35°C, humedad < 85%, lluvia < 10 mm |
+| ⚠ SECADO DEFICIENTE | Humedad ≥ 85% |
+| ✖ NO COLAR CONCRETO | Lluvia ≥ 10 mm o temperatura fuera de rango |
 
 ---
 
-## 📈 Funcionalidades
+## Arquitectura
 
-- Lectura de archivos CSV
-- Procesamiento automático de datos
-- Análisis climático
-- Generación de alertas
-- Interfaz gráfica
-- Visualización mediante gráficas
-- Organización modular
-- Programación Orientada a Objetos
-
----
-
-## 🧠 Conceptos aplicados
-
-| Concepto | Uso en el sistema |
-|---|---|
-| Clases y objetos | Modelado de lecturas y análisis |
-| Encapsulamiento | Organización de datos y métodos |
-| Herencia | `App` hereda de `tk.Tk` |
-| CSV | Lectura de datos climáticos |
-| tkinter | Interfaz gráfica |
-| matplotlib | Generación de gráficas |
-| if / else | Evaluación de condiciones |
-| list | Almacenamiento de lecturas |
-| datetime | Manejo de fecha y hora |
-| constantes de clase | Umbrales técnicos |
-
----
-
-## 🔄 Flujo del programa
-
-```text
-Usuario carga archivo CSV
-            ↓
-RegistroClimatico lee datos
-            ↓
-Lectura convierte tipos de datos
-            ↓
-Analizador evalúa condiciones
-            ↓
-App muestra alertas y gráficas
 ```
-
----
-
-## 🖥️ Interfaz del sistema
-
-La aplicación incluye:
-
-- 📋 Tabla de monitoreo climático
-- 📊 Gráficas de temperatura, humedad y lluvia
-- 🎨 Sistema de alertas por colores
-- 📌 Tarjetas de métricas globales
-
----
-
-## 📂 Archivos
-
-```text
-chaac_analizr/
-├── main_gui.py
-├── analizador.py
-├── registro_climatico.py
-├── lectura.py
-├── datos_climaticos.csv
+Chaac-Analizr/
+├── main_gui.py              # Interfaz gráfica (clase App)
+├── analizador.py            # Lógica de análisis y alertas (clase Analizador)
+├── registro_climatico.py    # Lectura del CSV (clase RegistroClimatico)
+├── lectura.py               # Modelo de datos (clase Lectura)
+├── datos_climaticos.csv     # Ejemplo de archivo de datos
 └── README.md
 ```
 
 ---
 
-## 🎬 Presentación del proyecto
+## Clases
 
-Durante la presentación se explica:
+### Lectura
+Representa una medición individual. Convierte los datos crudos del CSV al tipo correcto.
 
-- Captura manual de datos climáticos
-- Lectura del CSV
-- Funcionamiento del sistema
-- Programación Orientada a Objetos aplicada
-- Gráficas y alertas automáticas
+| Atributo | Tipo |
+|---|---|
+| fecha_hora | datetime |
+| temperatura_C | float |
+| humedad_pct | float |
+| lluvia_mm | float |
+| ubicacion | str |
+
+### RegistroClimatico
+Abre el CSV con `csv.DictReader` y crea un objeto `Lectura` por cada fila.
+
+### Analizador
+Evalúa cada lectura contra umbrales técnicos del concreto definidos como constantes de clase.
+
+```python
+TEMP_MAX_CONCRETO  = 35.0
+TEMP_MIN_CONCRETO  = 10.0
+HUMEDAD_MAX_SECADO = 85.0
+LLUVIA_CRITICA     = 10.0
+```
+
+### App
+Interfaz gráfica que hereda de `tk.Tk`. Coordina los demás módulos y muestra tabla, métricas y gráficas.
 
 ---
 
-## 👤 Autor
+## Conceptos aplicados
+
+| Concepto | Uso |
+|---|---|
+| Clases y objetos | Lectura, RegistroClimatico, Analizador, App |
+| Herencia | `App` hereda de `tk.Tk` |
+| Encapsulamiento | Cada clase expone solo lo necesario |
+| Constantes de clase | Umbrales técnicos en Analizador |
+| CSV | Lectura de datos con `csv.DictReader` |
+| datetime | Conversión y manejo de fechas |
+| matplotlib | Gráficas embebidas en tkinter |
+| try / except | Manejo de errores al cargar CSV |
+
+---
+
+## Captura de datos
+
+Los datos fueron obtenidos manualmente desde **AccuWeather**, consultando temperatura, humedad y lluvia por horas para Antigua Guatemala, Sacatepéquez. Los valores se transcribieron al archivo CSV al final de cada jornada.
+
+---
+
+## Autor
 
 **Eduardo Alejandro García González**  
-Carnet: 1010-26-22427  
+Carné: 1010-26-22427  
 Ingeniería Civil — Universidad Mariano Gálvez de Guatemala
-
----
